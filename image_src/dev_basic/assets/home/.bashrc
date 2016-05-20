@@ -1,4 +1,11 @@
-export PS1='\[\033[01;32m\]\h\[\033[01;36m\]\W$ \[\033[00m\]'
+if [[ -r /etc/profile.d/bash_prompt.sh ]]; then
+    . /etc/profile.d/bash_prompt.sh
+elif [[ -r /etc/profile.d/color_prompt ]]; then
+    . /etc/profile.d/color_prompt
+else
+    export PS1='\[\033[01;32m\]\h\[\033[01;36m\]\W$ \[\033[00m\]'
+fi
+
 function forwardSsh_help() {
 
     cat <<EOM

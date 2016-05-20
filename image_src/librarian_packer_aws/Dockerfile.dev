@@ -11,19 +11,20 @@ LABEL Name="dev_librarian_packer_aws" Vendor="sortuniq" Version="0.0.1" \
 
 ARG PACKER_VERSION
 
-ENV APP="packer"                         \
-    VERSION=$PACKER_VERSION              \
-    SCRIPTS_LOCAL="build-scripts-alpine" \
-    SCRIPTS_DOCKER="/var/tmp/scripts"
+ENV APP="packer"                    \
+    VERSION=$PACKER_VERSION         \
+    ASSETS_DIR="assets"             \
+    ASSETS_DOCKER="/var/tmp/assets" \
+    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine
 
-COPY $SCRIPTS_LOCAL $SCRIPTS_DOCKER
+COPY $ASSETS_DIR $ASSETS_DOCKER
 
 RUN chmod a+x $SCRIPTS_DOCKER/*                        \
     && $SCRIPTS_DOCKER/install_librarian_and_puppet.sh \
     && $SCRIPTS_DOCKER/install_packer.sh               \
     && $SCRIPTS_DOCKER/install_awscli.sh               \
     && apk --no-cache --update add sed make jq         \
-    && rm -rf /var/cache/apk/* $SCRIPTS_DOCKER
+    && rm -rf /var/cache/apk/* $ASSETS_DOCKER
   
 USER core
 CMD ["/bin/true"]
