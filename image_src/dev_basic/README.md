@@ -1,8 +1,17 @@
+[1]: https://github.com/jinal--shah/demo-coreos-vagrant-setup "using coreos with vagrant demo"
+
 # Container: dev_basic
+
+## devbox
+
+References to `coreos` and `devbox` are only relevant if you're
+using [demo-coreos-vagrant-setup][1]. Otherwise you can safely ignore them.
 
 ## BUILD | RUN
 
-* build from Dockerfile in this dir with tag 0.0.1
+* build from Dockerfile in this dir 
+
+  e.g. with tag 0.0.1
 
   ```
     docker build --no-cache=true --rm --tag dev_basic:0.0.1 .
