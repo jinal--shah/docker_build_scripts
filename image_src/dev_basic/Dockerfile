@@ -10,8 +10,8 @@ LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" V
 # docker tag $img_name:$tag_version $img_name:stable
 
 ARG VIM_INDENT=4
-ENV VIM_INDENT $VIM_INDENT \
-    SCRIPTS_LOCAL="./build-scripts-alpine" \
+ENV VIM_INDENT=$VIM_INDENT               \
+    SCRIPTS_LOCAL="build-scripts-alpine" \
     SCRIPTS_DOCKER="/var/tmp/scripts"
 
 COPY $SCRIPTS_LOCAL $SCRIPTS_DOCKER
