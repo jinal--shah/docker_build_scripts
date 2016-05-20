@@ -1,3 +1,9 @@
+for script in /etc/profile.d/*.sh ; do
+    if [ -r $script ] ; then
+        . $script
+    fi
+done
+
 if [[ -r /etc/profile.d/bash_prompt.sh ]]; then
     . /etc/profile.d/bash_prompt.sh
 elif [[ -r /etc/profile.d/color_prompt ]]; then
