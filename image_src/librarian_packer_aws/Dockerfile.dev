@@ -25,4 +25,5 @@ RUN chmod a+x $SCRIPTS_DOCKER/*                        \
     && apk --no-cache --update add sed make jq         \
     && rm -rf /var/cache/apk/* $SCRIPTS_DOCKER
   
+USER core
 CMD ["/bin/true"]

@@ -10,19 +10,26 @@ LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" V
 # docker tag $img_name:$tag_version $img_name:stable
 
 ARG VIM_INDENT=4
-ENV VIM_INDENT=$VIM_INDENT               \
-    SCRIPTS_LOCAL="build-scripts-alpine" \
-    SCRIPTS_DOCKER="/var/tmp/scripts"
+ENV VIM_INDENT=$VIM_INDENT             \
+    ASSETS_DIR="assets"                \
+    ASSETS_DOCKER="/var/tmp/assets"    \
+    ASSETS_HOME="/var/tmp/assets/home" \
+    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine
 
-COPY $SCRIPTS_LOCAL $SCRIPTS_DOCKER
-RUN  chmod a+x $SCRIPTS_DOCKER/*     \
-  && apk add --no-cache bash         \
-  && apk add --no-cache curl         \
-  && apk add --no-cache git          \
-  && apk add --no-cache tree         \
-  && apk add --no-cache --update sed \
+COPY $ASSETS_DIR $ASSETS_DOCKER
+RUN  chmod a+x $SCRIPTS_DOCKER/*         \
+  && apk add --no-cache bash             \
+  && apk add --no-cache curl             \
+  && apk add --no-cache git              \
+  && apk add --no-cache tree             \
+  && apk add --no-cache --update sed     \
+  && apk add --no-cache --update openssh \
   && /usr/bin/env sh $SCRIPTS_DOCKER/install_vim.sh      \
   && /usr/bin/env sh $SCRIPTS_DOCKER/create_user_core.sh \
-  && rm -rf /var/cache/apk/* $SCRIPTS_DOCKER
+  && cp -R $ASSETS_HOME/. /home/core                     \
+  && cp -R $ASSETS_HOME/. /root                          \
+  && chown -R core:core /home/core                       \
+  && chown -R root:root /root                            \
+  && rm -rf /var/cache/apk/* $ASSETS_DOCKER
 
 CMD ["/bin/true"]
