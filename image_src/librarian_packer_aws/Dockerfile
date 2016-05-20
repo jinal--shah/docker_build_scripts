@@ -22,7 +22,7 @@ RUN chmod a+x $SCRIPTS_DOCKER/*                        \
     && $SCRIPTS_DOCKER/install_librarian_and_puppet.sh \
     && $SCRIPTS_DOCKER/install_packer.sh               \
     && $SCRIPTS_DOCKER/install_awscli.sh               \
-    && apk --no-cache --update sed make jq             \
+    && apk --no-cache --update add sed make jq         \
     && rm -rf /var/cache/apk/* $SCRIPTS_DOCKER
   
 CMD ["/bin/true"]
