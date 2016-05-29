@@ -1,5 +1,5 @@
 [core]
-    pager = more
+    pager = less -x1,5
 [user]
     email = jnshah@gmail.com
     name = jinal--shah

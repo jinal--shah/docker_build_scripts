@@ -17,13 +17,12 @@ ENV VIM_INDENT=$VIM_INDENT             \
     SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
-RUN  chmod a+x $SCRIPTS_DOCKER/*         \
-  && apk add --no-cache bash             \
-  && apk add --no-cache curl             \
-  && apk add --no-cache git              \
-  && apk add --no-cache tree             \
-  && apk add --no-cache --update sed     \
-  && apk add --no-cache --update openssh \
+RUN  chmod a+x $SCRIPTS_DOCKER/*                         \
+  && apk add --no-cache bash                             \
+  && apk add --no-cache curl                             \
+  && apk add --no-cache git                              \
+  && apk add --no-cache tree                             \
+  && apk add --no-cache --update less openssh sed        \
   && /usr/bin/env sh $SCRIPTS_DOCKER/install_vim.sh      \
   && /usr/bin/env sh $SCRIPTS_DOCKER/create_user_core.sh \
   && cp -R $ASSETS_HOME/. /home/core                     \
