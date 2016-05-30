@@ -1,5 +1,6 @@
 [core]
     pager = less -x1,5
+    editor = vim
 [user]
     email = jnshah@gmail.com
     name = jinal--shah
