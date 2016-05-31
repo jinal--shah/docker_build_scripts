@@ -1,6 +1,6 @@
 FROM gliderlabs/alpine:3.3
 MAINTAINER Jinal Shah <jnshah@gmail.com>
-LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" Version="0.0.6"
+LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" Version="0.0.7"
 # build instructions:
 # # ... build and tag as stable
 # img_name=$(grep '^LABEL ' ./Dockerfile | sed -e 's/.*Name="\([^"]\+\).*/\1/')
@@ -22,7 +22,7 @@ RUN  chmod a+x $SCRIPTS_DOCKER/*                         \
   && apk add --no-cache curl                             \
   && apk add --no-cache git                              \
   && apk add --no-cache tree                             \
-  && apk add --no-cache --update less openssh sed        \
+  && apk add --no-cache --update less openssh sed wget   \
   && /usr/bin/env sh $SCRIPTS_DOCKER/install_vim.sh      \
   && /usr/bin/env sh $SCRIPTS_DOCKER/create_user_core.sh \
   && cp -R $ASSETS_HOME/. /home/core                     \
