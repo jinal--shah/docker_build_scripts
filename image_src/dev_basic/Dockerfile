@@ -1,6 +1,6 @@
 FROM gliderlabs/alpine:3.3
 MAINTAINER Jinal Shah <jnshah@gmail.com>
-LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" Version="0.0.6"
+LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" Version="0.0.7"
 # build instructions:
 # # ... build and tag as stable
 # img_name=$(grep '^LABEL ' ./Dockerfile | sed -e 's/.*Name="\([^"]\+\).*/\1/')
