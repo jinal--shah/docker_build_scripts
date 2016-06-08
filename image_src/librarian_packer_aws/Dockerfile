@@ -15,7 +15,7 @@ ENV APP="packer"                    \
     VERSION=$PACKER_VERSION         \
     ASSETS_DIR="assets"             \
     ASSETS_DOCKER="/var/tmp/assets" \
-    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine
+    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine"
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 
