@@ -25,7 +25,7 @@ RUN chmod a+x $SCRIPTS_DOCKER/*             \
     && apk --no-cache add mysql-client      \
     && $SCRIPTS_DOCKER/install_awscli.sh    \
     && $SCRIPTS_DOCKER/create_user_core.sh  \
-    && rm -rf /var/cache/apk/* $ASSETS_DOCKER
+    && rm -rf /var/cache/apk/* $ASSETS_DOCKER 2>/dev/null
 
 USER core
 
