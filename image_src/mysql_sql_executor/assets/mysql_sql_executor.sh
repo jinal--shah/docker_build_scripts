@@ -1,6 +1,14 @@
 #!/bin/bash
 # vim: ts=4 sw=4 et sr smartindent:
-
+#
+# To run, set the following vars in your environment:
+#
+# $DBHOST: location of remote DB
+# $DBPORT: listening mysql port
+# $DBUSER: the user to connect as
+# $DBPASS: the user's pword.
+# $SQL_S3_PATH: the full s3:// uri to the sql file
+#
 SQL_LOCAL=/var/tmp/my.sql
 SQL_ZIPPED=$SQL_LOCAL.gz
 MYSQL_OPTS="--host=$DBHOST --port=$DBPORT --user=$DBUSER --password=$DBPASS $DBNAME"
