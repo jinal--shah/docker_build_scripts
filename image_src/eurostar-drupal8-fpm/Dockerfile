@@ -1,8 +1,8 @@
 FROM php7-fpm-deb:0.0.1
 # from https://www.drupal.org/requirements/php#drupalversions
 MAINTAINER jinal--shah <jnshah@gmail.com>
-LABEL Name="drupal8-fpm-deb" Vendor="sortuniq" Version="0.0.1" \
-      Description="provides drupalised php7-fpm on debian"
+LABEL Name="eurostar-drupal8-fpm" Vendor="sortuniq" Version="0.0.1" \
+      Description="drupalised php7-fpm on debian with composer, nvm, npm and jspm"
 # build instructions:
 # img_name=$(grep '^LABEL ' ./Dockerfile | sed -e 's/.*Name="\([^"]\+\).*/\1/')
 # tag_version=$(grep '^LABEL ' ./Dockerfile | sed -e 's/.*Version="\([^"]\+\).*/\1/')
@@ -26,10 +26,12 @@ WORKDIR /srv/eurostar/htdocs
 # https://www.drupal.org/node/3060/release
 ENV DRUPAL_VERSION=8.1.2                                           \
     DRUPAL_MD5=91fdfbd1c28512e41f2a61bf69214900                    \
+    NPM_VERSION="v0.12.7"                                          \
     URI_DRUPAL="http://ftp.drupal.org/files/projects"              \
     APT_PKGS="libpng12-dev libjpeg-dev libpq-dev git mysql-client" \
     CFG_ARGS_GD="--with-png-dir=/usr --with-jpeg-dir=/usr"         \
-    EXT_LIST="gd mbstring opcache pdo pdo_mysql pdo_pgsql zip"
+    EXT_LIST="gd mbstring opcache pdo pdo_mysql pdo_pgsql zip"     \
+    NVM_URI="https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh"
 
 # install the PHP extensions we need
 RUN apt-get update                                \
@@ -52,9 +54,22 @@ RUN {                                              \
         echo 'opcache.enable_cli=1';               \
     } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-RUN curl -fSL "${URI_DRUPAL}/drupal-${DRUPAL_VERSION}.tar.gz" -o drupal.tar.gz \
+RUN curl -fSL "${URI_DRUPAL}/drupal-${DRUPAL_VERSION}.tar.gz" \
+         -o drupal.tar.gz                                     \
     && curl -sS https://getcomposer.org/installer             \
-    | php -- --install-dir=/usr/local/bin --filename=composer \
+    | php -- --install-dir=/usr/local/bin                     \
+          --filename=composer                                 \
+    && echo "... installing nvm" >&2                          \
+    && curl -o- $NVM_URI | bash                               \
+    && [ -f /root/.nvm/nvm.sh ]                               \
+    && echo "... installed nvm successfully" >&2              \
+    && echo $NPM_VERSION > .nvmrc                             \
+    && echo "... testing nvm" >&2                             \
+    && . /root/.nvm/nvm.sh || /bin/true                       \
+    && nvm install                                            \
+    && nvm use                                                \
+    && echo "... installing jspm"                             \
+    && npm install jspm -g                                    \
     && echo "${DRUPAL_MD5} *drupal.tar.gz" | md5sum -c -      \
     && tar -xz --strip-components=1 -f drupal.tar.gz          \
     && rm drupal.tar.gz                                       \
