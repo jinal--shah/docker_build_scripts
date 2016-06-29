@@ -1,6 +1,7 @@
+# ts=4 sw=4 et sr smartindent syntax=dockerfile:
 FROM dev_basic:stable
 MAINTAINER jinal--shah <jnshah@gmail.com>
-LABEL Name="dev_librarian_packer_aws" Vendor="sortuniq" Version="0.0.1" \
+LABEL Name="dev_librarian_packer_aws" Vendor="sortuniq" Version="0.0.2" \
       Description="run Makefiles and librarian-puppet to packerise for aws"
 # build instructions:
 # img_name=$(grep '^LABEL ' ./Dockerfile.dev | sed -e 's/.*Name="\([^"]\+\).*/\1/')
@@ -19,12 +20,12 @@ ENV APP="packer"                    \
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 
-RUN chmod a+x $SCRIPTS_DOCKER/*                        \
-    && $SCRIPTS_DOCKER/install_librarian_and_puppet.sh \
-    && $SCRIPTS_DOCKER/install_packer.sh               \
-    && $SCRIPTS_DOCKER/install_awscli.sh               \
-    && apk --no-cache --update add sed make jq         \
-    && rm -rf /var/cache/apk/* $ASSETS_DOCKER
+RUN chmod a+x $SCRIPTS_DOCKER/*                          \
+    && $SCRIPTS_DOCKER/install_librarian_and_puppet.sh   \
+    && $SCRIPTS_DOCKER/install_packer.sh                 \
+    && $SCRIPTS_DOCKER/install_awscli.sh                 \
+    && apk --no-cache --update add coreutils jq make sed \
+    && rm -rf /var/cache/apk/* $ASSETS_DOCKER 2>/dev/null
   
 USER core
 CMD ["/bin/true"]

@@ -1,6 +1,6 @@
 FROM gliderlabs/alpine:3.4
 MAINTAINER jinal--shah <jnshah@gmail.com>
-LABEL Name="awscli" Vendor="sortuniq" Version="0.0.1" \
+LABEL Name="awscli" Vendor="sortuniq" Version="0.0.2" \
       Description="provides awscli - entrypoint 'aws'"
 # build instructions:
 # img_name=$(grep '^LABEL ' ./Dockerfile | sed -e 's/.*Name="\([^"]\+\).*/\1/')

@@ -1,6 +1,6 @@
-FROM gliderlabs/alpine:3.3
+FROM gliderlabs/alpine:3.4
 MAINTAINER jinal--shah <jnshah@gmail.com>
-LABEL Name="librarian_packer_aws" Vendor="sortuniq" Version="0.0.2" \
+LABEL Name="librarian_packer_aws" Vendor="sortuniq" Version="0.0.3" \
       Description="run Makefiles and librarian-puppet to packerise for aws"
 # build instructions:
 # img_name=$(grep '^LABEL ' ./Dockerfile | sed -e 's/.*Name="\([^"]\+\).*/\1/')
