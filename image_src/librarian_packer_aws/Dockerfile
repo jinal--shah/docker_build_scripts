@@ -19,11 +19,11 @@ ENV APP="packer"                    \
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 
-RUN chmod a+x $SCRIPTS_DOCKER/*                        \
-    && $SCRIPTS_DOCKER/install_librarian_and_puppet.sh \
-    && $SCRIPTS_DOCKER/install_packer.sh               \
-    && $SCRIPTS_DOCKER/install_awscli.sh               \
-    && apk --no-cache --update add sed make jq         \
-    && rm -rf /var/cache/apk/* $ASSETS_DOCKER
+RUN chmod a+x $SCRIPTS_DOCKER/*                          \
+    && $SCRIPTS_DOCKER/install_librarian_and_puppet.sh   \
+    && $SCRIPTS_DOCKER/install_packer.sh                 \
+    && $SCRIPTS_DOCKER/install_awscli.sh                 \
+    && apk --no-cache --update add coreutils jq make sed \
+    && rm -rf /var/cache/apk/* $ASSETS_DOCKER 2>/dev/null
   
 CMD ["/bin/true"]

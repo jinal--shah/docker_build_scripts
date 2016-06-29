@@ -9,11 +9,7 @@ LABEL Name="awscli" Vendor="sortuniq" Version="0.0.1" \
 # docker rmi $img_name:stable 2>/dev/null
 # docker tag $img_name:$tag_version $img_name:stable
 
-ARG PACKER_VERSION
-
-ENV APP="packer"                    \
-    VERSION=$PACKER_VERSION         \
-    ASSETS_DIR="assets"             \
+ENV ASSETS_DIR="assets"             \
     ASSETS_DOCKER="/var/tmp/assets" \
     SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine"
 

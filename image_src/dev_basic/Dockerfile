@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:3.3
+FROM gliderlabs/alpine:3.4
 MAINTAINER Jinal Shah <jnshah@gmail.com>
 LABEL Name="dev_basic" Description="basic workspace process" Vendor="sortuniq" Version="0.0.7"
 # build instructions:
@@ -14,15 +14,12 @@ ENV VIM_INDENT=$VIM_INDENT             \
     ASSETS_DIR="assets"                \
     ASSETS_DOCKER="/var/tmp/assets"    \
     ASSETS_HOME="/var/tmp/assets/home" \
-    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine
+    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine"
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 RUN  chmod a+x $SCRIPTS_DOCKER/*                         \
-  && apk add --no-cache bash                             \
-  && apk add --no-cache curl                             \
-  && apk add --no-cache git                              \
-  && apk add --no-cache tree                             \
-  && apk add --no-cache --update less openssh sed        \
+  && apk add --no-cache --update bash coreutils curl git \
+  && apk add --no-cache --update less openssh sed tree   \
   && /usr/bin/env sh $SCRIPTS_DOCKER/install_vim.sh      \
   && /usr/bin/env sh $SCRIPTS_DOCKER/create_user_core.sh \
   && cp -R $ASSETS_HOME/. /home/core                     \
