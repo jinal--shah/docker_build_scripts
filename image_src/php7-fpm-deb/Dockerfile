@@ -7,7 +7,7 @@ FROM debian:jessie
 # master version at the link above, to make sure you pull in other changes too.
 #
 # - reducing layers
-# - with bcmath enabled
+# - with bcmath and zip enabled
 # - with bzip2 installed
 # - with work dir changed
 #
@@ -31,7 +31,7 @@ LABEL Name="php7-fpm-deb" Vendor="sortuniq" Version="0.0.1" \
 ENV PHPIZE_DEPS="autoconf file g++ gcc libc-dev make pkg-config re2c" \
     BUILD_DEPS="libcurl4-openssl-dev libedit-dev libsqlite3-dev libssl-dev libxml2-dev xz-utils" \
     PHP_INI_DIR="/usr/local/etc/php"                                  \
-    PHP_MODS="--enable-bcmath --enable-fpm"                           \
+    PHP_MODS="--enable-bcmath --enable-fpm --enable-zip"              \
     SET_FPM_USER="--with-fpm-user=www-data --with-fpm-group=www-data" \
     GPG_KEYS=1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763                 \
     PHP_VERSION=7.0.8                                                 \
@@ -52,6 +52,7 @@ RUN apt-get update                                                     \
         libedit2                                                       \
         libsqlite3-0                                                   \
         libxml2                                                        \
+        unzip                                                          \
     && rm -rf /var/lib/apt/lists/*                                     \
     && mkdir -p $PHP_INI_DIR/conf.d                                    \
     && curl -fSL "$PHP_URI" -o "$PHP_FILENAME"                         \
