@@ -9,14 +9,13 @@ ENV ASSETS_DIR="assets"              \
     ASSETS_DOCKER="/var/tmp/assets"
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
-RUN cp -a $ASSETS_DOCKER/* /     \
-    && apt update && apt-get install -y --no-install-recommends git
+RUN cp -a $ASSETS_DOCKER/* /                                         \
+    && apt update && apt-get install -y --no-install-recommends git  \
     && echo "export NVM_DIR=/opt/nvm" | tee -a /etc/profile.d/nvm.sh \
-    && echo ". /opt/nvm-repo/nvm.sh" | tee -a /etc/profile.d/nvm.sh
-    && bash -l -c 'nvm install v0.12.7' \
-    && curl -sS https://getcomposer.org/installer \
-       | php -- --install-dir=/usr/local/bin --filename=composer \
-    && chmod a+x /prepare_project.sh \
+    && echo ". /opt/nvm-repo/nvm.sh" | tee -a /etc/profile.d/nvm.sh  \
+    && curl -sS https://getcomposer.org/installer                    \
+       | php -- --install-dir=/usr/local/bin --filename=composer     \
+    && chmod a+x /prepare_project.sh                                 \
     && rm -rf $ASSETS_DOCKER
 
 WORKDIR /srv/eurostar
