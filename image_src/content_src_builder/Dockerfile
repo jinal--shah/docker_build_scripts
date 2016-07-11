@@ -6,7 +6,7 @@ LABEL Name="content_project_builder" Vendor="sortuniq" Version="0.0.1" \
                    Should be run by a systemd script. \
       " 
 ENV ASSETS_DIR="assets"              \
-    ASSETS_DOCKER="/var/tmp/assets"  \
+    ASSETS_DOCKER="/var/tmp/assets"
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 RUN cp -a $ASSETS_DOCKER/* /     \
