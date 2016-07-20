@@ -1,6 +1,6 @@
 FROM php7-fpm-deb:stable
 MAINTAINER Jinal Shah <jnshah@gmail.com>
-LABEL Name="content_project_builder" Vendor="sortuniq" Version="0.0.1" \
+LABEL Name="content_src_builder" Vendor="sortuniq" Version="0.0.1" \
       Description="Installs npm, composer, jspm, git  \
                    Entrypoint script gets all modules \
                    Should be run by a systemd script. \
@@ -29,9 +29,12 @@ CMD ["/prepare_project.sh"]
 # docker tag $img_name:$tag_version $img_name:$GIT_TAG
 
 # run instructions:
-# docker run                           \
-#   --name boo                         \
-#   --rm                               \
-#   -v /home/core/app/opt/nvm:/opt/nvm \
-#   -v /home/core/app/srv:/srv         \
-#   content_project_builder:0.0.1
+# docker run                   \
+#   --name boo                 \
+#   --rm                       \
+#   -v /home/core/app/opt:/opt \
+#   -v /home/core/app/srv:/srv \
+#   content_src_builder:0.0.1
+
+# See /prepare_project.sh for env vars that can be set
+# via docker run's -e option

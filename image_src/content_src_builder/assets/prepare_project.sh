@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export COMPOSER_CACHE_DIR=${COMPOSER_CACHE_DIR:-/opt/composer_cache}
 export NVM_DIR=/opt/nvm/.nvm 
 export NPM_CACHE_DIR=${NPM_CACHE_DIR:-/opt/npm_cache}
 export NPM_VERSION=${NPM_VERSION:-0.12.7}
@@ -38,7 +39,7 @@ jspm install || exit 1
 
 echo "$0 INFO: ... running composer install"
 composer config --global discard-changes true
-composer -vvv --no-interaction install || exit 1
+composer --no-interaction install || exit 1
 
 echo "$0 INFO: ... installing gulp modules"
 ./node_modules/.bin/gulp prod || exit 1
