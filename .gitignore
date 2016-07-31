@@ -2,3 +2,4 @@
 **/.ssh
 **/*.swp
 **/assets/srv
+**/Dockerfile.tmp

@@ -2,7 +2,11 @@
 # ... uses CMD | ENTRYPOINT FROM official nginx:stable-alpine, without daemon.
 FROM nginx:stable-alpine
 MAINTAINER Jinal Shah <jnshah@gmail.com>
-LABEL Name="eil-content-nginx"  Vendor="sortuniq" Version="0.0.3" \
+LABEL Name="eil-content/nginx"  Vendor="sortuniq"  \
+      Version="0.0.3"                              \
+      com.eurostar.build_time=""                   \
+      com.eurostar.built_by=""                     \
+      com.eurostar.built_from=""                   \
       Description="Eurostar content product nginx, curl, vim, bespoke conf"
 
 ENV ASSETS_DIR="assets" \
