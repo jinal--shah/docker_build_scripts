@@ -14,8 +14,8 @@ ENV VIM_INDENT=$VIM_INDENT             \
     ASSETS_DIR="assets"                \
     ASSETS_DOCKER="/var/tmp/assets"    \
     ASSETS_HOME="/var/tmp/assets/home" \
-    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine"       \
-    PKGS="bash coreutils curl git less openssh sed tree docker" \
+    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine" \
+    PKGS="bash coreutils curl git less openssh sed tree docker"
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 RUN  chmod a+x $SCRIPTS_DOCKER/*                         \
