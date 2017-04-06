@@ -43,12 +43,7 @@ EOM
 
 function addKey() {
     key="$1"
-    if [[ -r ${key}.pub ]]; then
-        echo "... adding key $key"
-        ssh-add $key
-    else
-        echo "... no public key found for $key. Will skip ..."
-    fi
+    ssh-add $key
 }
 
 forwardSsh
