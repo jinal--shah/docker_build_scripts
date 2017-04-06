@@ -14,18 +14,18 @@ ENV VIM_INDENT=$VIM_INDENT             \
     ASSETS_DIR="assets"                \
     ASSETS_DOCKER="/var/tmp/assets"    \
     ASSETS_HOME="/var/tmp/assets/home" \
-    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine"
+    SCRIPTS_DOCKER="/var/tmp/assets/build-scripts-alpine"       \
+    PKGS="bash coreutils curl git less openssh sed tree docker" \
 
 COPY $ASSETS_DIR $ASSETS_DOCKER
 RUN  chmod a+x $SCRIPTS_DOCKER/*                         \
-  && apk add --no-cache --update bash coreutils curl git \
-  && apk add --no-cache --update less openssh sed tree   \
+  && apk add --no-cache --update $PKGS                   \
   && /usr/bin/env sh $SCRIPTS_DOCKER/install_vim.sh      \
   && /usr/bin/env sh $SCRIPTS_DOCKER/create_user_core.sh \
   && cp -R $ASSETS_HOME/. /home/core                     \
   && cp -R $ASSETS_HOME/. /root                          \
   && chown -R core:core /home/core                       \
   && chown -R root:root /root                            \
-  && rm -rf /var/cache/apk/* $ASSETS_DOCKER
+  && rm -rf $ASSETS_DOCKER
 
 CMD ["/bin/true"]
