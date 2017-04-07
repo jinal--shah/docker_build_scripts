@@ -12,7 +12,13 @@ else
     export PS1='\[\033[01;32m\]\h\[\033[01;36m\]\W$ \[\033[00m\]'
 fi
 
-function forwardSsh_help() {
+if [[ -d ~/profile.d ]]; then
+    for f in ~/profile.d/*; do
+        . $f || echo "ERROR: ... could not source $f"
+    done
+fi
+
+forwardSsh_help() {
 
     cat <<EOM
 usage:  forwardSsh
@@ -20,30 +26,18 @@ usage:  forwardSsh
 EOM
 
 }
-function forwardSsh() {
+
+forwardSsh() {
     echo "... generating agent for ssh forwarding in cluster"
     pkill ssh-agent
     eval $(ssh-agent)
     for privateKey in $(ls -1 $HOME/.ssh/id_* | grep -v '\.pub')
     do
-        addKey "$privateKey"
+        ssh-add "$privateKey"
     done
     ssh-add -l # verify your key has been added to the key-ring
 }
 
-function addKey_help() {
-    cat <<EOM
-usage:  addKey </path/to/private_ssh_key>
-... adds key to ssh-agent's keyring
-e.g.
-    addKey ~/.ssh/id_rsa
-EOM
-
-}
-
-function addKey() {
-    key="$1"
-    ssh-add $key
-}
-
 forwardSsh
+
+alias gtree='tree -a -C -I .git'
